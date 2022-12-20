@@ -1,0 +1,66 @@
+package StepDefinitions;
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class googleSearch {
+
+	WebDriver driver;
+	
+	@Given("user launch ChromeBrower")
+	public void user_launch_chrome_brower() {
+	    
+		//get project path
+		String projectPath = System.getProperty("user.dir");
+		
+		System.setProperty("webdriver.chrome.driver", projectPath +"/src/test/resources/Driver/chromedriver.exe");
+		
+		driver = new ChromeDriver();
+		
+		
+	}
+	@When("user navigate to google.com")
+	public void user_navigate_to_google_com() {
+
+	   driver.navigate().to("https://google.com");
+	}
+
+	@When("user enter text to search box")
+	public void user_enter_text_to_search_box() {
+	   
+		driver.findElement(By.name("q")).sendKeys("inspired");
+	}
+
+	@And("user press enter")
+	public void user_press_enter() {
+		
+		driver.findElement(By.name("q")).sendKeys(Keys.ENTER);
+	}
+
+	@And("Result are displayed")
+	public void result_are_displayed() {
+	    System.out.println("Return search result");
+	}
+	@Then("count result number")
+	public void count_result_number() {
+		
+		//get result displayed on current page
+	  List<WebElement> result = driver.findElements(By.className("LC20lb"));
+	  //get displayed result count
+	  String resulttwo = driver.findElement(By.xpath("//*[@id=\"result-stats\"]")).getText();
+	  
+	   
+	   System.out.println("Current Page count" + result.size());
+	   
+	   System.out.println("Provided count result"+ resulttwo);
+	   
+	} 
+
+}

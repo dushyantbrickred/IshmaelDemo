@@ -1,0 +1,9 @@
+Feature: Feature to count Google search result
+
+  Scenario: Count google search result
+    Given user launch ChromeBrower
+    When user navigate to google.com
+    And user enter text to search box 
+    When user press enter
+    And Result are displayed
+    Then count result number
